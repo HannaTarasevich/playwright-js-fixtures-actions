@@ -1,0 +1,33 @@
+{
+  "name": "playwright-js-fixtures-actions",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "playwright test",
+    "test:watch": "playwright test --ui",
+    "test:headed": "playwright test --headed --project=\"Desktop Chrome\"",
+    "test:showReport": "playwright show-report",
+    "test:updateSnapshots": "playwright test --update-snapshots",
+    "prettier:check": "prettier . --check",
+    "prettier:fix": "prettier . --write",
+    "prepare": "husky"
+  },
+  "keywords": [
+    "playwright",
+    "testing",
+    "fixture",
+    "actions"
+  ],
+  "author": "Hanna Tarasevich",
+  "license": "ISC",
+  "description": "A project demonstrating the use of Playwright with custom fixtures and actions.",
+  "devDependencies": {
+    "@playwright/test": "^1.49.1",
+    "@types/node": "^22.10.7",
+    "husky": "^9.1.7",
+    "prettier": "^3.4.2",
+    "@axe-core/playwright": "^4.10.1"
+  },
+  "lint-staged": {
+    "*.{js,css,md}": "prettier --write"
+  }
+}
