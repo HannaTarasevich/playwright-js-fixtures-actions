@@ -13,7 +13,7 @@ import { products } from '../data/buyProducts';
 const test = fixture.extend({
   buyPage: async ({ page, baseURL }, use, testInfo) => {
     const product = testInfo.title
-      .match(new RegExp(`(${products.map((product) => product.fullTitle).join('|')})`))[0]
+      .match(new RegExp(products.map((p) => p.fullTitle).join('|')))[0]
       .replaceAll(' ', '-');
     const cookiesComponent = new CookiesComponent(page);
     await page.goto(baseURL);
