@@ -7,18 +7,14 @@
 
 import { test as fixture } from '@playwright/test';
 import BuyPage from './pages/buy.page';
-import CookiesComponent from './components/cookies.component';
+import { acceptCookies } from '../utils/helper';
 import { products } from '../data/buyProducts';
 
 const test = fixture.extend({
   buyPage: async ({ page, baseURL }, use, testInfo) => {
-    const product = testInfo.title
-      .match(new RegExp(products.map((p) => p.fullTitle).join('|')))[0]
-      .replaceAll(' ', '-');
-    const cookiesComponent = new CookiesComponent(page);
-    await page.goto(baseURL);
-    await cookiesComponent.acceptCookies();
-    await use(new BuyPage(page, product));
+    await acceptCookies(page);
+    const productLocatorId = products.find((p) => testInfo.title.includes(p.fullTitle)).fullTitle.replaceAll(' ', '-');
+    await use(new BuyPage(page, productLocatorId));
   },
 });
 

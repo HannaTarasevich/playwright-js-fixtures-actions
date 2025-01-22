@@ -14,7 +14,7 @@ import {
   cardElements,
 } from '../../../data/buyProducts';
 import { headerMenu } from '../../../data/menus';
-import helper from '../../../utils/helper';
+import { isMobile } from '../../../utils/helper';
 
 products.forEach((product) => {
   test.describe(`Buy product - page structure`, async () => {
@@ -40,7 +40,7 @@ products.forEach((product) => {
     });
 
     test(`Buy ${product.fullTitle} - subheader`, async ({ buyPage }) => {
-      test.skip(helper.isMobile(), 'The test is not applicable for mobile devices');
+      test.skip(isMobile(), 'The test is not applicable for mobile devices');
       await expect.soft(buyPage.subHeader.logo).toBeEnabled();
       await expect.soft(buyPage.subHeader.logo).toHaveText(product.shortTitle);
 
@@ -63,7 +63,7 @@ products.forEach((product) => {
     });
 
     test(`Buy ${product.fullTitle} - header (mobile)`, async ({ buyPage }) => {
-      test.skip(!helper.isMobile(), 'The test is applicable for mobile devices');
+      test.skip(!isMobile(), 'The test is applicable for mobile devices');
       await expect.soft(buyPage.header.logo).toBeEnabled();
       await expect.soft(buyPage.header.searchButton).toBeEnabled();
       await expect.soft(buyPage.header.profileButton).not.toBeVisible();
@@ -72,7 +72,7 @@ products.forEach((product) => {
     });
 
     test(`Buy ${product.fullTitle} - subheader (mobile)`, async ({ buyPage }) => {
-      test.skip(!helper.isMobile(), 'The test is applicable for mobile devices');
+      test.skip(!isMobile(), 'The test is applicable for mobile devices');
       await expect.soft(buyPage.subHeader.logo).not.toBeVisible();
       await expect.soft(buyPage.subHeader.tag).not.toBeVisible();
       await expect.soft(buyPage.subHeader.menuOptionsMobile).toHaveCount(1);

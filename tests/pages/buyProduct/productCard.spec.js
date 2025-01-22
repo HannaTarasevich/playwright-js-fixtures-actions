@@ -6,7 +6,7 @@
 import { expect } from '@playwright/test';
 import test from '../../../pageObjects/pageFixture';
 import { periodSwitcher, products, userSwitcher, cardElements } from '../../../data/buyProducts';
-import helper from '../../../utils/helper';
+import { isMobile } from '../../../utils/helper';
 
 products.forEach((product) => {
   test.describe('Buy product - product cards', () => {
@@ -15,7 +15,7 @@ products.forEach((product) => {
     });
 
     test(`Check default view for ${product.fullTitle} product card`, async ({ buyPage }) => {
-      const attribute = helper.isMobile() ? 'data-test' : 'class';
+      const attribute = isMobile() ? 'data-test' : 'class';
       await expect(await buyPage.targetBuyerSwitcherOptions.first().getAttribute(attribute)).toContain('selected');
       await expect(await buyPage.periodSwitcherOptions.first().getAttribute('class')).toContain('selected');
       await expect(buyPage.productCard.markedCheckbox).not.toBeVisible();
