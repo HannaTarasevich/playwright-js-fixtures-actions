@@ -12,8 +12,8 @@ products.forEach((product) => {
       await buyPage.goto(product.urlTitle);
     });
 
-    test(`Structure check - ${product.urlTitle}`, async ({ buyPage }) => {});
+    test(`Structure check - ${product.fullTitle}`, async ({ buyPage }) => {});
 
-    test(`Request a trial button redirects to the shop/eform - ${product.urlTitle}`, async ({ buyPage }) => {});
+    test(`Request a trial button redirects to the shop/eform - ${product.fullTitle}`, async ({ buyPage }) => {});
   });
 });

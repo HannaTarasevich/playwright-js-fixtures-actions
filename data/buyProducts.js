@@ -45,6 +45,11 @@ const _allProductsPackCard = {
 };
 
 const _jetBrainsAIProCard = {
+  fullTitle: 'JetBrains AI Pro',
+  // Add the description for the card
+};
+
+const _dotUltimate = {
   // Add the description for the card
 };
 
@@ -60,7 +65,7 @@ const _idea = {
     {
       title: 'IntelliJ IDEA Ultimate',
       description: 'The Leading Java and Kotlin IDE',
-      logoText: 'IntelliJ IDEA',
+      logosText: ['IntelliJ IDEA'],
     },
     _allProductsPackCard,
   ],
@@ -78,12 +83,69 @@ const _clion = {
     {
       title: 'CLion',
       description: 'A smart cross-platform IDE for C and C++',
-      logoText: 'CLion',
+      logosText: ['CLion'],
     },
     _allProductsPackCard,
   ],
 };
 
-const products = [_idea, _clion];
+const _pycharm = {
+  urlTitle: 'pycharm',
+  shortTitle: 'PyCharm',
+  fullTitle: 'PyCharm Professional',
+  subHeaderMenu: ['Use Cases', 'EAP', "What's New", 'Features', 'Learn'],
+  targetBuyersCount: 4,
+  numberOfLinks: 1,
+  trial: false,
+  cards: [
+    {
+      title: 'PyCharm Professional',
+      description: 'The Python IDE for data science and web development',
+      logosText: ['PyCharm'],
+    },
+    _allProductsPackCard,
+    _jetBrainsAIProCard,
+  ],
+};
+
+const _rubymine = {
+  urlTitle: 'ruby',
+  shortTitle: 'RubyMine',
+  fullTitle: 'RubyMine',
+  subHeaderMenu: ['Coming in 2025.1', "What's New", 'Features', 'Learn'],
+  targetBuyersCount: 4,
+  numberOfLinks: 1,
+  trial: true,
+  cards: [
+    {
+      title: 'RubyMine',
+      description: 'The most intelligent Ruby IDE',
+      logosText: ['RubyMine'],
+    },
+    _allProductsPackCard,
+  ],
+};
+
+const _resharper = {
+  urlTitle: 'resharper',
+  shortTitle: 'ReSharper',
+  fullTitle: 'ReSharper',
+  subHeaderMenu: ['Coming in 2025.1', "What's New", 'Features', 'Docs', 'Blog', 'Plugins'],
+  targetBuyersCount: 4,
+  numberOfLinks: 1,
+  trial: false,
+  cards: [
+    {
+      title: 'ReSharper',
+      description: 'Visual Studio extensions for .NET and C++ developers.',
+      logosText: ['ReSharper', 'ReSharper C++'],
+    },
+    _allProductsPackCard,
+    _dotUltimate,
+  ],
+};
+
+const products = [_idea, _clion, _pycharm, _rubymine, _resharper];
+//const products = [_pycharm];
 
 export { products, headerTitle, userSwitcher, periodSwitcher, cardElements, productTag };

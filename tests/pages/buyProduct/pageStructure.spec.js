@@ -22,7 +22,7 @@ products.forEach((product) => {
       await buyPage.goto(product.urlTitle);
     });
 
-    test(`Buy ${product.urlTitle} - header`, async ({ buyPage }) => {
+    test(`Buy ${product.fullTitle} - header`, async ({ buyPage }) => {
       test.skip(helper.isMobile(), 'The test is not applicable for mobile devices');
       await expect.soft(buyPage.header.logo).toBeEnabled();
       await expect.soft(buyPage.header.searchButton).toBeEnabled();
@@ -39,7 +39,7 @@ products.forEach((product) => {
       }
     });
 
-    test(`Buy ${product.urlTitle} - subheader`, async ({ buyPage }) => {
+    test(`Buy ${product.fullTitle} - subheader`, async ({ buyPage }) => {
       test.skip(helper.isMobile(), 'The test is not applicable for mobile devices');
       await expect.soft(buyPage.subHeader.logo).toBeEnabled();
       await expect.soft(buyPage.subHeader.logo).toHaveText(product.shortTitle);
@@ -57,7 +57,7 @@ products.forEach((product) => {
       await expect.soft(buyPage.subHeader.buttons).toHaveCount(2);
     });
 
-    test(`Buy ${product.urlTitle} - header (mobile)`, async ({ buyPage }) => {
+    test(`Buy ${product.fullTitle} - header (mobile)`, async ({ buyPage }) => {
       test.skip(!helper.isMobile(), 'The test is applicable for mobile devices');
       await expect.soft(buyPage.header.logo).toBeEnabled();
       await expect.soft(buyPage.header.searchButton).toBeEnabled();
@@ -66,7 +66,7 @@ products.forEach((product) => {
       await expect.soft(buyPage.header.languageButton).not.toBeVisible();
     });
 
-    test(`Buy ${product.urlTitle} - subheader (mobile)`, async ({ buyPage }) => {
+    test(`Buy ${product.fullTitle} - subheader (mobile)`, async ({ buyPage }) => {
       test.skip(!helper.isMobile(), 'The test is applicable for mobile devices');
       await expect.soft(buyPage.subHeader.logo).not.toBeVisible();
       await expect.soft(buyPage.subHeader.tag).not.toBeVisible();
@@ -82,12 +82,12 @@ products.forEach((product) => {
       }
     });
 
-    test(`Buy ${product.urlTitle} - main title`, async ({ buyPage }) => {
+    test(`Buy ${product.fullTitle} - main title`, async ({ buyPage }) => {
       await expect.soft(buyPage.mainHeader).toBeVisible();
       await expect.soft(buyPage.mainHeader).toHaveText(headerTitle);
     });
 
-    test(`Buy ${product.urlTitle} - target buyer switcher`, async ({ buyPage }) => {
+    test(`Buy ${product.fullTitle} - target buyer switcher`, async ({ buyPage }) => {
       const targetBuyerSwitcherOptions = await buyPage.targetBuyerSwitcherOptions.all();
       await expect.soft(targetBuyerSwitcherOptions.length).toEqual(product.targetBuyersCount);
 
@@ -97,7 +97,7 @@ products.forEach((product) => {
       }
     });
 
-    test(`Buy ${product.urlTitle} - period switcher`, async ({ buyPage }) => {
+    test(`Buy ${product.fullTitle} - period switcher`, async ({ buyPage }) => {
       const periodSwitcherOptions = await buyPage.periodSwitcherOptions.all();
       await expect.soft(periodSwitcherOptions.length).toEqual(Object.keys(periodSwitcher).length);
 
@@ -107,45 +107,49 @@ products.forEach((product) => {
       }
     });
 
-    test(`Buy ${product.urlTitle} - product card`, async ({ buyPage }) => {
-      await expect.soft(buyPage.productCard.item).toHaveCount(product.cards.length);
-      await expect.soft(buyPage.productCard.title.first()).toHaveText(product.cards[0].title);
-      await expect.soft(buyPage.productCard.description.first()).toHaveText(product.cards[0].description);
-      await expect.soft(buyPage.productCard.logo.first()).toBeVisible();
-      await expect.soft(buyPage.productCard.logo.first()).toHaveText(product.cards[0].logoText);
-      await expect.soft(buyPage.productCard.checkbox.first()).toBeVisible();
-      await expect.soft(buyPage.productCard.checkboxDescription.first()).toHaveText(cardElements.checkboxDescription);
-      await expect.soft(buyPage.productCard.price.first()).toBeVisible();
-      await expect
-        .soft(buyPage.productCard.priceTitle.first())
-        .toHaveText(cardElements.priceDescription.organization.year);
-      await expect.soft(buyPage.productCard.buyButton.first()).toBeEnabled();
-      await expect.soft(buyPage.productCard.buyButton.first()).toHaveText(cardElements.buyButton);
-      await expect.soft(buyPage.productCard.link.first()).toHaveText(cardElements.getQuoteLink);
-      await expect.soft(buyPage.productCard.link.first()).toHaveCount(product.numberOfLinks);
+    test(`Buy ${product.fullTitle} - product card`, async ({ buyPage }) => {
+      await expect.soft(buyPage.productCard.item).toHaveCount(1);
+      await expect.soft(buyPage.productCard.title).toHaveText(product.cards[0].title);
+      await expect.soft(buyPage.productCard.description).toHaveText(product.cards[0].description);
+      await expect.soft(buyPage.productCard.logo).toHaveCount(product.cards[0].logosText.length);
+
+      const logoElements = await buyPage.productCard.logo.all();
+      for (const logo of logoElements) {
+        await expect.soft(logo).toBeVisible();
+      }
+
+      await expect.soft(buyPage.productCard.logo).toHaveText(product.cards[0].logosText);
+      await expect.soft(buyPage.productCard.checkbox).toBeVisible();
+      await expect.soft(buyPage.productCard.checkboxDescription).toHaveText(cardElements.checkboxDescription);
+      await expect.soft(buyPage.productCard.price).toBeVisible();
+      await expect.soft(buyPage.productCard.priceTitle).toHaveText(cardElements.priceDescription.organization.year);
+      await expect.soft(buyPage.productCard.buyButton).toBeEnabled();
+      await expect.soft(buyPage.productCard.buyButton).toHaveText(cardElements.buyButton);
+      await expect.soft(buyPage.productCard.link).toHaveText(cardElements.getQuoteLink);
+      await expect.soft(buyPage.productCard.link).toHaveCount(product.numberOfLinks);
     });
 
-    test.skip(`Buy ${product.urlTitle} - All Products Pack product card`, async ({ buyPage }) => {});
+    test.skip(`Buy ${product.fullTitle} - All Products Pack product card`, async ({ buyPage }) => {});
 
-    test.skip(`Buy ${product.urlTitle} - note`, async ({ buyPage }) => {});
+    test.skip(`Buy ${product.fullTitle} - note`, async ({ buyPage }) => {});
 
-    test.skip(`Buy ${product.urlTitle} - further info`, async ({ buyPage }) => {});
+    test.skip(`Buy ${product.fullTitle} - further info`, async ({ buyPage }) => {});
 
-    test.skip(`Buy ${product.urlTitle} - 90 days trial`, async ({ buyPage }) => {});
+    test.skip(`Buy ${product.fullTitle} - 90 days trial`, async ({ buyPage }) => {});
 
-    test.skip(`Buy ${product.urlTitle} - footer`, async ({ buyPage }) => {});
+    test.skip(`Buy ${product.fullTitle} - footer`, async ({ buyPage }) => {});
 
-    test.skip(`Buy ${product.urlTitle} - sticky main header`, async ({ buyPage }) => {});
+    test.skip(`Buy ${product.fullTitle} - sticky main header`, async ({ buyPage }) => {});
 
-    test.skip(`Buy ${product.urlTitle} - feedback option (survey)`, async ({ buyPage }) => {});
+    test.skip(`Buy ${product.fullTitle} - feedback option (survey)`, async ({ buyPage }) => {});
 
-    test.skip(`Buy ${product.urlTitle} - hamburger menu is displayed for the width less then 1000`, async ({
+    test.skip(`Buy ${product.fullTitle} - hamburger menu is displayed for the width less then 1000`, async ({
       buyPage,
     }) => {});
 
-    test.skip(`Buy ${product.urlTitle} - page reflects language changes`, async ({ buyPage }) => {});
+    test.skip(`Buy ${product.fullTitle} - page reflects language changes`, async ({ buyPage }) => {});
 
-    test.skip(`Buy ${product.urlTitle} - page reflects to the countries changes (additional banners are displayed)`, async ({
+    test.skip(`Buy ${product.fullTitle} - page reflects to the countries changes (additional banners are displayed)`, async ({
       buyPage,
     }) => {});
   });

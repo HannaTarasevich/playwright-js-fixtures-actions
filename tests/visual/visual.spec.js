@@ -9,7 +9,7 @@ products.forEach((product) => {
       await buyPage.goto(product.urlTitle);
     });
 
-    test(`visual-test: ${product.urlTitle}`, async ({ buyPage }) => {
+    test(`visual-test: ${product.fullTitle}`, async ({ buyPage }) => {
       await expect(buyPage.page).toHaveScreenshot({
         fullPage: true,
         maxDiffPixelRatio: 0.2,

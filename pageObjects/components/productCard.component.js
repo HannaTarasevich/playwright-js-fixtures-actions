@@ -1,7 +1,7 @@
 export default class productCardComponent {
-  constructor(page) {
+  constructor(page, product) {
     this.page = page;
-    this.item = page.locator('div:not([class*=hidden]) > .wt-container [class*=product-buy-card]');
+    this.item = page.locator(`div:not([class*=hidden]) > .wt-container [data-test=product-card-${product}]`);
     this.title = this.item.locator('[data-test="product-name"]');
     this.description = this.item.locator('[data-test="product-description"]');
     this.checkbox = this.item.locator('[data-test="checkbox-input"]');
