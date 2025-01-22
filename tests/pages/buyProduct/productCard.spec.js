@@ -33,7 +33,7 @@ products.forEach((product) => {
       await expect(await buyPage.periodSwitcherOptions.first().getAttribute('class')).toContain('selected');
 
       const priceDescription = await buyPage.productCard.priceTitle.all();
-      await expect(priceDescription[i]).toHaveText(cardElements.priceDescription.individual.year);
+      await expect(priceDescription).toHaveText(cardElements.priceDescription.individual.year);
 
       await buyPage.selectPeriod(periodSwitcher.monthly);
       await expect(await buyPage.productCard.priceTitle).toHaveText(cardElements.priceDescription.individual.month);
