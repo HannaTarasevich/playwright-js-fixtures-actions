@@ -61,6 +61,7 @@ const _idea = {
   targetBuyersCount: 3,
   numberOfLinks: 1,
   trial: true,
+  tagIde: true,
   cards: [
     {
       title: 'IntelliJ IDEA Ultimate',
@@ -79,6 +80,7 @@ const _clion = {
   targetBuyersCount: 4,
   numberOfLinks: 1,
   trial: false,
+  tagIde: true,
   cards: [
     {
       title: 'CLion',
@@ -97,6 +99,7 @@ const _pycharm = {
   targetBuyersCount: 4,
   numberOfLinks: 1,
   trial: false,
+  tagIde: true,
   cards: [
     {
       title: 'PyCharm Professional',
@@ -116,6 +119,7 @@ const _rubymine = {
   targetBuyersCount: 4,
   numberOfLinks: 1,
   trial: true,
+  tagIde: true,
   cards: [
     {
       title: 'RubyMine',
@@ -134,6 +138,7 @@ const _resharper = {
   targetBuyersCount: 4,
   numberOfLinks: 1,
   trial: false,
+  tagIde: false,
   cards: [
     {
       title: 'ReSharper',
@@ -146,6 +151,5 @@ const _resharper = {
 };
 
 const products = [_idea, _clion, _pycharm, _rubymine, _resharper];
-//const products = [_pycharm];
 
 export { products, headerTitle, userSwitcher, periodSwitcher, cardElements, productTag };

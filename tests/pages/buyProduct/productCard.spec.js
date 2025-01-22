@@ -16,44 +16,27 @@ products.forEach((product) => {
 
     test(`Check default view for ${product.fullTitle} product card`, async ({ buyPage }) => {
       const attribute = helper.isMobile() ? 'data-test' : 'class';
-      await expect(await buyPage.targetBuyerSwitcherOptions.first().getAttribute(attribute)).toContain('selected');
-      await expect(await buyPage.periodSwitcherOptions.first().getAttribute('class')).toContain('selected');
-      await expect(buyPage.productCard.markedCheckbox.first()).not.toBeVisible();
+      await expect(await buyPage.targetBuyerSwitcherOptions.getAttribute(attribute)).toContain('selected');
+      await expect(await buyPage.periodSwitcherOptions.getAttribute('class')).toContain('selected');
+      await expect(buyPage.productCard.markedCheckbox).not.toBeVisible();
     });
 
     test(`Check ${product.fullTitle} options for organization`, async ({ buyPage }) => {
       await buyPage.selectPeriod(periodSwitcher.monthly);
-      await expect(await buyPage.productCard.priceTitle.first()).toHaveText(
-        cardElements.priceDescription.organization.month
-      );
+      await expect(await buyPage.productCard.priceTitle).toHaveText(cardElements.priceDescription.organization.month);
       await buyPage.selectPeriod(periodSwitcher.yearly);
-      await expect(await buyPage.productCard.priceTitle.first()).toHaveText(
-        cardElements.priceDescription.organization.year
-      );
+      await expect(await buyPage.productCard.priceTitle).toHaveText(cardElements.priceDescription.organization.year);
     });
 
     test(`Check ${product.fullTitle} individual options`, async ({ buyPage }) => {
       await buyPage.selectTargetBuyerSwitcher(userSwitcher.individual);
-      await expect(await buyPage.periodSwitcherOptions.first().getAttribute('class')).toContain('selected');
+      await expect(await buyPage.periodSwitcherOptions.getAttribute('class')).toContain('selected');
 
-      const hasAiProCard = product.cards.filter((card) => card.fullTitle?.includes('AI Pro'));
       const priceDescription = await buyPage.productCard.priceTitle.all();
-
-      for (let i = 0; i < priceDescription.length; i++) {
-        await expect(priceDescription[i]).toBeVisible();
-
-        const expectedText =
-          hasAiProCard.length > 0 && i === priceDescription.length - 1
-            ? 'per year'
-            : cardElements.priceDescription.individual.year[i % cardElements.priceDescription.individual.year.length];
-
-        await expect(priceDescription[i]).toHaveText(expectedText);
-      }
+      await expect(priceDescription[i]).toHaveText(cardElements.priceDescription.individual.year);
 
       await buyPage.selectPeriod(periodSwitcher.monthly);
-      await expect(await buyPage.productCard.priceTitle.first()).toHaveText(
-        cardElements.priceDescription.individual.month
-      );
+      await expect(await buyPage.productCard.priceTitle).toHaveText(cardElements.priceDescription.individual.month);
     });
 
     test.skip(`Purchase ${product.fullTitle} by clicking on Buy button`, async ({ buyPage }) => {});

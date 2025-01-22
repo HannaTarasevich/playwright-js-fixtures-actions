@@ -43,8 +43,13 @@ products.forEach((product) => {
       test.skip(helper.isMobile(), 'The test is not applicable for mobile devices');
       await expect.soft(buyPage.subHeader.logo).toBeEnabled();
       await expect.soft(buyPage.subHeader.logo).toHaveText(product.shortTitle);
-      await expect.soft(buyPage.subHeader.tag).toBeEnabled();
-      await expect.soft(buyPage.subHeader.tag).toHaveText(productTag);
+
+      if (product.tagIde) {
+        await expect.soft(buyPage.subHeader.tag).toBeEnabled();
+        await expect.soft(buyPage.subHeader.tag).toHaveText(productTag);
+      } else {
+        await expect.soft(buyPage.subHeader.tag).toHaveCount(0);
+      }
 
       const subHeaderMenuOptions = await buyPage.subHeader.menuTextOptions.all();
       await expect.soft(subHeaderMenuOptions.length).toEqual(product.subHeaderMenu.length);
