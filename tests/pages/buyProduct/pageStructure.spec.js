@@ -23,7 +23,7 @@ products.forEach((product) => {
     });
 
     test(`Buy ${product.fullTitle} - header`, async ({ buyPage }) => {
-      test.skip(helper.isMobile(), 'The test is not applicable for mobile devices');
+      test.skip(isMobile(), 'The test is not applicable for mobile devices');
       await expect.soft(buyPage.header.logo).toBeEnabled();
       await expect.soft(buyPage.header.searchButton).toBeEnabled();
       await expect.soft(buyPage.header.profileButton).toBeEnabled();
