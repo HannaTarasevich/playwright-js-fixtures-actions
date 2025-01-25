@@ -1,18 +1,17 @@
 export default class productCardComponent {
   constructor(page, product) {
-    this.page = page;
-    this.item = page.locator(`div:not([class*=hidden]) > .wt-container [data-test=product-card-${product}]`);
-    this.title = this.item.locator('[data-test="product-name"]');
-    this.description = this.item.locator('[data-test="product-description"]');
-    this.checkbox = this.item.locator('[data-test="checkbox-input"]');
-    this.markedCheckbox = this.item.locator('[data-test="checkmark"]');
+    this.item = page.locator('div:not([class*=hidden]) > .wt-container').getByTestId(`product-card-${product}`);
+    this.title = this.item.getByTestId('product-name');
+    this.description = this.item.getByTestId('product-description');
+    this.checkbox = this.item.getByTestId('checkbox-input');
+    this.markedCheckbox = this.item.getByTestId('checkmark');
     this.checkboxDescription = this.item.locator('span[class*=content]');
-    this.price = this.item.locator('[data-test="product-price"]');
-    this.priceTitle = this.item.locator('[data-test*="product-price-title"]');
-    this.buyButton = this.item.locator('[data-test="product-card-footer-buy-button"]');
-    this.link = this.item.locator('[data-test="product-card-footer-link"]');
-    this.stickyTag = this.item.locator('[data-test="sticky-tag"]');
-    this.logo = this.item.locator('[data-test="product-list-logo"]');
+    this.price = this.item.getByTestId('product-price');
+    this.priceTitle = this.item.getByTestId('product-price-title');
+    this.buyButton = this.item.getByTestId('product-card-footer-buy-button');
+    this.link = this.item.getByTestId('product-card-footer-link');
+    this.stickyTag = this.item.getByTestId('sticky-tag');
+    this.logo = this.item.getByTestId('product-list-logo');
   }
 
   async clickCheckbox() {

@@ -31,7 +31,11 @@ products.forEach((product) => {
     test(`Check ${product.fullTitle} individual options`, async ({ buyPage }) => {
       await buyPage.selectTargetBuyerSwitcher(userSwitcher.individual);
       await expect(await buyPage.periodSwitcherOptions.first().getAttribute('class')).toContain('selected');
-      await expect(await buyPage.productCard.priceTitle).toHaveText(cardElements.priceDescription.individual.year);
+
+      const pricesTitles = await buyPage.productCard.priceTitle.all();
+      for (let i = 0; i < pricesTitles.length; i++) {
+        await expect(pricesTitles[i]).toHaveText(cardElements.priceDescription.individual.year[i]);
+      }
 
       await buyPage.selectPeriod(periodSwitcher.monthly);
       await expect(await buyPage.productCard.priceTitle).toHaveText(cardElements.priceDescription.individual.month);
