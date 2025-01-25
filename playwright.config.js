@@ -62,14 +62,14 @@ export default defineConfig({
         userAgent:
           'Mozilla/5.0 (Linux; Android 14; SAMSUNG SM-S24) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.6943.16 Mobile Safari/537.36',
         screen: {
-          width: 412,
-          height: 915,
+          width: 1080,
+          height: 2340,
         },
         viewport: {
-          width: 412,
-          height: 839,
+          width: 360,
+          height: 780,
         },
-        deviceScaleFactor: 2.625,
+        deviceScaleFactor: 3,
         isMobile: true,
         hasTouch: true,
         defaultBrowserType: 'chromium',
