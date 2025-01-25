@@ -12,7 +12,6 @@ import { products } from '../data/buyProducts';
 
 const test = fixture.extend({
   buyPage: async ({ page, baseURL }, use, testInfo) => {
-    await acceptCookies(page);
     const productLocatorId = products.find((p) => testInfo.title.includes(p.fullTitle)).fullTitle.replaceAll(' ', '-');
     await use(new BuyPage(page, productLocatorId));
   },
@@ -21,6 +20,14 @@ const test = fixture.extend({
     async ({ buyPage }, use, testInfo) => {
       await buyPage.goto(products.find((p) => testInfo.title.includes(p.fullTitle)).urlTitle);
       await use();
+    },
+    { auto: true },
+  ],
+
+  acceptCookies: [
+    async ({ page }, use) => {
+      await acceptCookies(page);
+      await use(page);
     },
     { auto: true },
   ],
