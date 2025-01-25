@@ -8,10 +8,6 @@ import { products } from '../../../data/buyProducts';
 
 products.forEach((product) => {
   test.describe.skip(`Further information`, async () => {
-    test.beforeEach(async ({ buyPage }) => {
-      await buyPage.goto(product.urlTitle);
-    });
-
     test(`Structure check - ${product.fullTitle}`, async ({ buyPage }) => {});
 
     test(`Links navigates to the appropriate pages - ${product.fullTitle}`, async ({ buyPage }) => {});

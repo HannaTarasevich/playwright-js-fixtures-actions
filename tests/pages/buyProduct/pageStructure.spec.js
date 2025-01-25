@@ -18,10 +18,6 @@ import { isMobile } from '../../../utils/helper';
 
 products.forEach((product) => {
   test.describe(`Buy product - page structure`, async () => {
-    test.beforeEach(async ({ buyPage }) => {
-      await buyPage.goto(product.urlTitle);
-    });
-
     test(`Buy ${product.fullTitle} - header`, async ({ buyPage }) => {
       test.skip(isMobile(), 'The test is not applicable for mobile devices');
       await expect.soft(buyPage.header.logo).toBeEnabled();

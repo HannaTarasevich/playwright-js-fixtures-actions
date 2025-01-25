@@ -16,6 +16,14 @@ const test = fixture.extend({
     const productLocatorId = products.find((p) => testInfo.title.includes(p.fullTitle)).fullTitle.replaceAll(' ', '-');
     await use(new BuyPage(page, productLocatorId));
   },
+
+  forEachTest: [
+    async ({ buyPage }, use, testInfo) => {
+      await buyPage.goto(products.find((p) => testInfo.title.includes(p.fullTitle)).urlTitle);
+      await use();
+    },
+    { auto: true },
+  ],
 });
 
 export default test;

@@ -10,10 +10,6 @@ import { isMobile } from '../../../utils/helper';
 
 products.forEach((product) => {
   test.describe('Buy product - product cards', () => {
-    test.beforeEach(async ({ buyPage }) => {
-      await buyPage.goto(product.urlTitle);
-    });
-
     test(`Check default view for ${product.fullTitle} product card`, async ({ buyPage }) => {
       const attribute = isMobile() ? 'data-test' : 'class';
       await expect(await buyPage.targetBuyerSwitcherOptions.first().getAttribute(attribute)).toContain('selected');
