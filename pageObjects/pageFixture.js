@@ -12,17 +12,18 @@ import { products } from '../data/buyProducts';
 
 const test = fixture.extend({
   buyPage: async ({ page, baseURL }, use, testInfo) => {
-    const productLocatorId = products.find((p) => testInfo.title.includes(p.fullTitle)).fullTitle.replaceAll(' ', '-');
-    await use(new BuyPage(page, productLocatorId));
-  },
+    const product = products.find((p) => testInfo.title.includes(p.fullTitle));
+    if (!product) {
+      throw new Error(
+        `Product is not found for test: ${testInfo.title}. Please add the product to the data/buyProducts.js file.`
+      );
+    }
 
-  forEachTest: [
-    async ({ buyPage }, use, testInfo) => {
-      await buyPage.goto(products.find((p) => testInfo.title.includes(p.fullTitle)).urlTitle);
-      await use();
-    },
-    { auto: true },
-  ],
+    const productLocatorId = product.fullTitle.replaceAll(' ', '-');
+    const buyPage = new BuyPage(page, productLocatorId);
+    await buyPage.goto(product.urlTitle);
+    await use(buyPage);
+  },
 
   acceptCookies: [
     async ({ page }, use) => {
