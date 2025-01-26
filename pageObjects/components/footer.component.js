@@ -1,5 +1,6 @@
 export default class footerComponent {
   constructor(page) {
+    this.page = page;
     this.footerArea = page.locator('.wt-footer');
     this.countryButton = this.footerArea.getByTestId('footer-country-button');
     this.countrySearchInput = page.getByTestId('search-input');

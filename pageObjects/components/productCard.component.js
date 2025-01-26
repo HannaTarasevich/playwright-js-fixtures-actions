@@ -1,5 +1,6 @@
 export default class productCardComponent {
   constructor(page, product) {
+    this.page = page;
     this.item = page.locator('div:not([class*=hidden]) > .wt-container').getByTestId(`product-card-${product}`);
     this.title = this.item.getByTestId('product-name');
     this.description = this.item.getByTestId('product-description');
