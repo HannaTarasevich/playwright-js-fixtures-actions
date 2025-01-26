@@ -15,7 +15,7 @@ const test = fixture.extend({
     const product = products.find((p) => testInfo.title.includes(p.fullTitle));
     if (!product) {
       throw new Error(
-        `Product is not found for test: ${testInfo.title}. Please add the product to the data/buyProducts.js file.`
+        `Product is not found for test: ${testInfo.title}. Please add the product title to the test name and to the data/buyProducts.js file.`
       );
     }
 

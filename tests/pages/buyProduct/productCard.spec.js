@@ -12,8 +12,8 @@ products.forEach((product) => {
   test.describe('Buy product - product cards', () => {
     test(`Check default view for ${product.fullTitle} product card`, async ({ buyPage }) => {
       const attribute = isMobile() ? 'data-test' : 'class';
-      await expect(await buyPage.targetBuyerSwitcherOptions.first().getAttribute(attribute)).toContain('selected');
-      await expect(await buyPage.periodSwitcherOptions.first().getAttribute('class')).toContain('selected');
+      await expect(await buyPage.targetBuyerSwitcherOptions.first()).toHaveAttribute(attribute, /selected/);
+      await expect(await buyPage.periodSwitcherOptions.first()).toHaveClass(/selected/);
       await expect(buyPage.productCard.markedCheckbox).not.toBeVisible();
     });
 
@@ -26,7 +26,7 @@ products.forEach((product) => {
 
     test(`Check ${product.fullTitle} individual options`, async ({ buyPage }) => {
       await buyPage.selectTargetBuyerSwitcher(userSwitcher.individual);
-      await expect(await buyPage.periodSwitcherOptions.first().getAttribute('class')).toContain('selected');
+      await expect(await buyPage.periodSwitcherOptions.first()).toHaveClass(/selected/);
 
       const pricesTitles = await buyPage.productCard.priceTitle.all();
       for (let i = 0; i < pricesTitles.length; i++) {

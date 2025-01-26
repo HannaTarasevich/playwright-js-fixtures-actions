@@ -67,7 +67,7 @@ products.forEach((product) => {
       await expect.soft(buyPage.header.languageButton).not.toBeVisible();
     });
 
-    test(`Buy ${product.fullTitle} - subheader (mobile)`, async ({ buyPage }) => {
+    test.only(`Buy ${product.fullTitle} - subheader (mobile)`, async ({ buyPage }) => {
       test.skip(!isMobile(), 'The test is applicable for mobile devices');
       await expect.soft(buyPage.subHeader.logo).not.toBeVisible();
       await expect.soft(buyPage.subHeader.tag).not.toBeVisible();
