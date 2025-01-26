@@ -5,7 +5,6 @@ import productCardComponent from '../components/productCard.component';
 
 export default class BuyPage {
   constructor(page, product) {
-    this.page = page;
     this.mainHeader = page.locator('#buy-cards h1');
     this.targetBuyerSwitcherOptions = page.locator(
       'section > [data-test*="adaptive-switcher"] > [data-test*="adaptive-switcher"] button'
