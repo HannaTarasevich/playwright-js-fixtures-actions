@@ -8,15 +8,11 @@ import { products } from '../../../data/buyProducts';
 
 products.forEach((product) => {
   test.describe(`Buy product - special categories`, async () => {
-    test.beforeEach(async ({ buyPage }) => {
-      await buyPage.goto(product.urlTitle);
-    });
+    test.skip(`Special categories content for ${product.fullTitle}`, async ({ buyPage }) => {});
 
-    test.skip(`Special categories content for ${product.urlTitle}`, async ({ buyPage }) => {});
+    test.skip(`Special categories does not have period switch - ${product.fullTitle}`, async ({ buyPage }) => {});
 
-    test.skip(`Special categories does not have period switch - ${product.urlTitle}`, async ({ buyPage }) => {});
-
-    test.skip(`Special categories links lead to the appropriate pages - ${product.urlTitle}`, async ({
+    test.skip(`Special categories links lead to the appropriate pages - ${product.fullTitle}`, async ({
       buyPage,
     }) => {});
   });

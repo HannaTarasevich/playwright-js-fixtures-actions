@@ -2,10 +2,10 @@ export default class footerComponent {
   constructor(page) {
     this.page = page;
     this.footerArea = page.locator('.wt-footer');
-    this.countryButton = this.footerArea.locator('[data-test="footer-country-button"]');
-    this.countrySearchInput = page.locator('[data-test="search-input"]');
-    this.countryOption = page.locator('[data-test="dropdown-content"]').first();
-    this.countryChooseButton = page.locator('[data-test="footer-popup-confirm-country"]');
+    this.countryButton = this.footerArea.getByTestId('footer-country-button');
+    this.countrySearchInput = page.getByTestId('search-input');
+    this.countryOption = page.getByTestId('dropdown-content').first();
+    this.countryChooseButton = page.getByTestId('footer-popup-confirm-country');
   }
 
   async selectCountry(country) {

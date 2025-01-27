@@ -6,68 +6,54 @@
 import { expect } from '@playwright/test';
 import test from '../../../pageObjects/pageFixture';
 import { periodSwitcher, products, userSwitcher, cardElements } from '../../../data/buyProducts';
-import helper from '../../../utils/helper';
+import { isMobile } from '../../../utils/helper';
 
 products.forEach((product) => {
   test.describe('Buy product - product cards', () => {
-    test.beforeEach(async ({ buyPage }) => {
-      await buyPage.goto(product.urlTitle);
+    test(`Check default view for ${product.fullTitle} product card`, async ({ buyPage }) => {
+      const attribute = isMobile() ? 'data-test' : 'class';
+      await expect(await buyPage.targetBuyerSwitcherOptions.first()).toHaveAttribute(attribute, /selected/);
+      await expect(await buyPage.periodSwitcherOptions.first()).toHaveClass(/selected/);
+      await expect(buyPage.productCard.markedCheckbox).not.toBeVisible();
     });
 
-    test(`Check default view for ${product.urlTitle} product card`, async ({ buyPage }) => {
-      const attribute = helper.isMobile() ? 'data-test' : 'class';
-      await expect(await buyPage.targetBuyerSwitcherOptions.first().getAttribute(attribute)).toContain('selected');
-      await expect(await buyPage.periodSwitcherOptions.first().getAttribute('class')).toContain('selected');
-      await expect(buyPage.productCard.markedCheckbox.first()).not.toBeVisible();
-    });
-
-    test(`Check ${product.urlTitle} options for organization`, async ({ buyPage }) => {
+    test(`Check ${product.fullTitle} options for organization`, async ({ buyPage }) => {
       await buyPage.selectPeriod(periodSwitcher.monthly);
-      await expect(await buyPage.productCard.priceTitle.first()).toHaveText(
-        cardElements.priceDescription.organization.month
-      );
+      await expect(await buyPage.productCard.priceTitle).toHaveText(cardElements.priceDescription.organization.month);
       await buyPage.selectPeriod(periodSwitcher.yearly);
-      await expect(await buyPage.productCard.priceTitle.first()).toHaveText(
-        cardElements.priceDescription.organization.year
-      );
+      await expect(await buyPage.productCard.priceTitle).toHaveText(cardElements.priceDescription.organization.year);
     });
 
-    test(`Check ${product.urlTitle} individual options`, async ({ buyPage }) => {
+    test(`Check ${product.fullTitle} individual options`, async ({ buyPage }) => {
       await buyPage.selectTargetBuyerSwitcher(userSwitcher.individual);
-      await expect(await buyPage.periodSwitcherOptions.first().getAttribute('class')).toContain('selected');
+      await expect(await buyPage.periodSwitcherOptions.first()).toHaveClass(/selected/);
 
-      const priceDescription = await buyPage.productCard.priceTitle.all();
-
-      for (let i = 0; i < priceDescription.length; i++) {
-        await expect(priceDescription[i]).toBeVisible();
-        const expectedText =
-          cardElements.priceDescription.individual.year[i % cardElements.priceDescription.individual.year.length];
-        await expect(priceDescription[i]).toHaveText(expectedText);
+      const pricesTitles = await buyPage.productCard.priceTitle.all();
+      for (let i = 0; i < pricesTitles.length; i++) {
+        await expect(pricesTitles[i]).toHaveText(cardElements.priceDescription.individual.year[i]);
       }
 
       await buyPage.selectPeriod(periodSwitcher.monthly);
-      await expect(await buyPage.productCard.priceTitle.first()).toHaveText(
-        cardElements.priceDescription.individual.month
-      );
+      await expect(await buyPage.productCard.priceTitle).toHaveText(cardElements.priceDescription.individual.month);
     });
 
-    test.skip(`Purchase ${product.urlTitle} by clicking on Buy button`, async ({ buyPage }) => {});
+    test.skip(`Purchase ${product.fullTitle} by clicking on Buy button`, async ({ buyPage }) => {});
 
-    test.skip(`Purchase with Supercharge option for ${product.urlTitle}`, async ({ buyPage }) => {});
+    test.skip(`Purchase with Supercharge option for ${product.fullTitle}`, async ({ buyPage }) => {});
 
-    test.skip(`Product card links for ${product.urlTitle} navigates to the appropriate page`, async ({
+    test.skip(`Product card links for ${product.fullTitle} navigates to the appropriate page`, async ({
       buyPage,
     }) => {});
 
-    test.skip(`Check prices for ${product.urlTitle}`, async ({ buyPage }) => {});
+    test.skip(`Check prices for ${product.fullTitle}`, async ({ buyPage }) => {});
 
-    test.skip(`Check All Products pack included tools - ${product.urlTitle}`, async ({ buyPage }) => {});
+    test.skip(`Check All Products pack included tools - ${product.fullTitle}`, async ({ buyPage }) => {});
 
-    test.skip(`Check All Products pack Learn more link - ${product.urlTitle}`, async ({ buyPage }) => {});
+    test.skip(`Check All Products pack Learn more link - ${product.fullTitle}`, async ({ buyPage }) => {});
 
-    test.skip(`Check "Best offer" tags on ${product.urlTitle}`, async ({ buyPage }) => {});
+    test.skip(`Check "Best offer" tags on ${product.fullTitle}`, async ({ buyPage }) => {});
 
-    test.skip(`JetBrains AI Pro product card - ${product.urlTitle} (skip the test if there is not the card by design)`, async ({
+    test.skip(`JetBrains AI Pro product card - ${product.fullTitle} (skip the test if there is not the card by design)`, async ({
       buyPage,
     }) => {});
   });

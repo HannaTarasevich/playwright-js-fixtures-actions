@@ -11,7 +11,7 @@ test.describe.skip(`Accessibility scans`, async () => {
       await buyPage.goto(product.urlTitle);
     });
 
-    test(`a11y - ${product.urlTitle}`, async ({ buyPage }) => {
+    test(`a11y - ${product.fullTitle}`, async ({ buyPage }) => {
       const accessibilityScanResults = await new AxeBuilder(buyPage).analyze();
       expect(accessibilityScanResults.violations).toEqual([]);
     });
